@@ -17,12 +17,6 @@ abstract class Repository implements RepositoryInterface
     protected $modelClass;
 
     /**
-     *
-     * @var string
-     */
-    protected $uuidColumn = 'uuid';
-
-    /**
      * @return Builder
      */
     protected function newQuery()
@@ -95,16 +89,6 @@ abstract class Repository implements RepositoryInterface
 
         $this->newQuery()->find($id);
         return $this;
-    }
-
-    /**
-     *
-     * @param string $uuid
-     * @return Model|Builder
-     */
-    public function findByUuid($uuid)
-    {
-        return $this->newQuery()->where($this->uuidColumn, $uuid)->first();
     }
 
     /**
