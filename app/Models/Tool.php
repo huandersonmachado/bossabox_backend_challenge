@@ -11,4 +11,11 @@ class Tool extends Model
         "description",
         "link"
     ];
+    /**
+     * @return Illuminate\Database\Eloquent\Relations\BelongsToMany;
+     */
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'tools_tags', 'tool_id', 'tag_id');
+    }
 }

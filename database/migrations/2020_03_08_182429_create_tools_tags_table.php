@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateToolsTable extends Migration
+class CreateToolsTagsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreateToolsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tools', function (Blueprint $table) {
+        Schema::create('tools_tags', function (Blueprint $table) {
             $table->id();
-            $table->string('title', 45);
-            $table->string('link', 45);
-            $table->string('description', 150);
+            $table->bigInteger('tool_id')->unsigned();
+            $table->bigInteger('tag_id')->unsigned();
+
+            $table->foreign('tool_id')->references('id')->on('tools');
+            $table->foreign('tag_id')->references('id')->on('tags');
             $table->timestamps();
         });
     }
@@ -29,6 +31,6 @@ class CreateToolsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tools');
+        Schema::dropIfExists('tools_tags');
     }
 }
