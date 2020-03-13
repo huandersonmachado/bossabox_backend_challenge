@@ -141,7 +141,7 @@ abstract class Repository implements RepositoryInterface
      */
     public function delete(Model $model)
     {
-        $model->delete();
+        return $model->delete();
     }
 
     /**

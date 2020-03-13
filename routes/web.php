@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['prefix' => 'tools'], function() {
+    Route::get('/', 'ToolsController@index')->name('tools.index');
+    Route::post('/', 'ToolsController@store')->name('tools.store');
+    Route::delete('{id}', 'ToolsController@delete')->name('tools.delete');
 });

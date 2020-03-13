@@ -12,7 +12,7 @@ class ToolsTest extends TestCase
 
     public function testReturnAllTools()
     {
-        $response = $this->get('/api/tools');
+        $response = $this->get('/tools');
 
         $response->assertStatus(200);
         $response->assertJsonFragment(
@@ -32,7 +32,7 @@ class ToolsTest extends TestCase
 
     public function testSearchByTag()
     {
-        $response = $this->get('/api/tools?node=planning');
+        $response = $this->get('/tools?node=planning');
 
         $response->assertStatus(200);
         $response->assertJsonFragment(
@@ -52,7 +52,7 @@ class ToolsTest extends TestCase
 
     public function testCreateToolAndTag()
     {
-        $response = $this->post('/api/tools', [
+        $response = $this->post('/tools', [
                 'title' => 'fastify',
                 'link' => 'https://www.fastify.io/',
                 'description' => 'Extremely fast and simple, low-overhead web framework for NodeJS. Supports HTTP2.',
@@ -115,6 +115,23 @@ class ToolsTest extends TestCase
         ]);
         $this->assertDatabaseHas('tags', [
             'name' => 'localhost',
+        ]);
+    }
+
+    public function testDeleteTool()
+    {
+        $tool = Tool::create( [
+            "title"=> "Notion",
+            "description"=> "All in one tool to organize teams and ideas. Write, plan, collaborate, and get organized.",
+            "link"=> "https://notion.so",
+        ]);
+
+        $response = $this->delete("/tools/$tool->id");
+
+        $response->assertStatus(204);
+
+        $this->assertDatabaseMissing('tools', [
+            'id' => $tool->id
         ]);
     }
 }

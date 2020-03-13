@@ -17,8 +17,3 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-Route::group(['prefix' => 'tools'], function() {
-    Route::get('/', 'ToolsController@index')->name('tools.index');
-    Route::post('/', 'ToolsController@store')->name('tools.store');
-});

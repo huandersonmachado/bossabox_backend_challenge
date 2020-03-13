@@ -55,4 +55,25 @@ class ToolsController extends Controller
             ]);
         }
     }
+
+    /**
+     * @param integer $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function delete(int $id)
+    {
+        try {
+            $tool = $this->toolsRepositories->findById($id, true);
+            $toolDeleted = $this->toolsRepositories->delete($tool);
+
+            if ($toolDeleted)
+                return response()->json([], Response::HTTP_NO_CONTENT);
+
+            return response()->json([], Response::HTTP_INTERNAL_SERVER_ERROR);
+        } catch (Exception $exception) {
+            return response()->json([
+                'error' => $exception->getMessage(),
+            ]);
+        }
+    }
 }
