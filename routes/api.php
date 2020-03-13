@@ -18,4 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/tools', 'ToolsController@index')->name('tools.index');
+Route::group(['prefix' => 'tools'], function() {
+    Route::get('/', 'ToolsController@index')->name('tools.index');
+    Route::post('/', 'ToolsController@store')->name('tools.store');
+});
