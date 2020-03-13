@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Tool;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -81,6 +82,15 @@ class ToolsTest extends TestCase
                 ]
             ]
         );
+
+        $tool = Tool::with('tags')->find(1);
+
+        $tool->tags->each(function($tag) use($tool) {
+            $this->assertDatabaseHas('tools_tags', [
+                'tool_id' => $tool->id,
+                'tag_id' => $tag->id,
+            ]);
+        });
 
         $this->assertDatabaseHas('tools', [
             'title' => 'fastify',

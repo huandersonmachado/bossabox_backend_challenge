@@ -22,6 +22,9 @@ class ToolsController extends Controller
         $this->toolsRepositories = $toolsRepositories;
     }
 
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index()
     {
         try {
@@ -34,6 +37,10 @@ class ToolsController extends Controller
         }
     }
 
+    /**
+     * @param ToolsRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function store(ToolsRequest $request)
     {
         try {

@@ -9,14 +9,18 @@ class TagsRepositories extends Repository
 {
     protected $modelClass = Tag::class;
 
+    /**
+     * @param array $data
+     * @return array
+     */
     public function createOrUpdate(array $data)
     {
 
         $tags = collect($data);
 
         return $tags->map(function($tag) {
-            $tagModel = $this->findByName($tag);
-            //dd($tagModel);
+            $tagModel = $this->findByName(strtolower($tag));
+
             if ($tagModel !== null)
                 return $tagModel->id;
 
@@ -25,6 +29,11 @@ class TagsRepositories extends Repository
         });
     }
 
+    /**
+     *
+     * @param string $name
+     * @return \Illuminate\Database\Eloquent\Model
+     */
     public function findByName(string $name)
     {
         return $this->newQuery()->where('name', $name)->first();

@@ -13,6 +13,10 @@ class ToolsRepositories extends Repository
 {
     protected $modelClass = Tool::class;
 
+    /**
+     *
+     * @return ToolsCollection
+     */
     public function getAllWithTags()
     {
         $node = request('node');
@@ -29,7 +33,7 @@ class ToolsRepositories extends Repository
 
     /**
      * @param array $data
-     * @return void
+     * @return ToolsResource
      */
     public function create(array $data)
     {
