@@ -5,7 +5,7 @@ on:
     branchs:
       - master
       - develop
-      - features/*
+      - feature/*
 
 jobs:
   laravel-tests-codesniffer:
