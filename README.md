@@ -15,7 +15,7 @@ O Ambiente é montado utlizando o laradock
 
 ### Subindo a Aplicação
 
-Após baixar o projeto o laradock é inclúido como submodulo, para configuração da porta da aplicação e banco de dados acesse a pasta laradock/ e copie o arquivo **env-example** para .env e mude as seguintes configurações;
+Após baixar o projeto o laradock é incluído como submodulo, para configuração da porta da aplicação e banco de dados acesse a pasta laradock/ e copie o arquivo **env-example** para .env e mude as seguintes configurações;
 
 ```
 MYSQL_DATABASE=bossabox
@@ -41,7 +41,7 @@ Para utilizar os comandos listados abaixo basta entrar no container workspace cr
     docker-compose exec --user=laradock workspace bash
 ```
 
-### Criar o arquivo .env Laravel
+### Criando o arquivo .env Laravel
 
 Dentro do container Copie o arquivo .env.example para .env logo em seguinda execute o artisan para criar a chave da aplicação, lembre-se de configurar as chaves com os valores respectivos configurados no .env do laradock
 
@@ -49,7 +49,7 @@ Dentro do container Copie o arquivo .env.example para .env logo em seguinda exec
     php artisan key:genarate
 ```
 
-### Instalar as dependências
+### Instalando as dependências
 
 Para Instalar as dependências dos projeto basta rodar o composer
 
@@ -57,7 +57,7 @@ Para Instalar as dependências dos projeto basta rodar o composer
     composer install
 ```
 
-### Executar os Testes
+### Executando os Testes
 
 ```
     php artisan test
