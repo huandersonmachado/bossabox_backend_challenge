@@ -30,7 +30,7 @@ class ToolsController extends Controller
         try {
             $tools = $this->toolsRepositories->getAllWithTags();
             return response()->json($tools);
-        } catch(Exception $exception) {
+        } catch (Exception $exception) {
             return response()->json([
                 'error' => $exception->getMessage(),
             ]);
@@ -45,11 +45,12 @@ class ToolsController extends Controller
     {
         try {
             $tool = $this->toolsRepositories->create($request->all());
-            if ($tool)
+            if ($tool) {
                 return response()->json($tool, Response::HTTP_CREATED);
+            }
 
             response()->json([], Response::HTTP_CREATED);
-        } catch(Exception $exception) {
+        } catch (Exception $exception) {
             return response()->json([
                 'error' => $exception->getMessage(),
             ]);
@@ -66,8 +67,9 @@ class ToolsController extends Controller
             $tool = $this->toolsRepositories->findById($id, true);
             $toolDeleted = $this->toolsRepositories->delete($tool);
 
-            if ($toolDeleted)
+            if ($toolDeleted) {
                 return response()->json([], Response::HTTP_NO_CONTENT);
+            }
 
             return response()->json([], Response::HTTP_INTERNAL_SERVER_ERROR);
         } catch (Exception $exception) {
@@ -85,16 +87,17 @@ class ToolsController extends Controller
     {
         try {
             $toolModel = $this->toolsRepositories->findById($request->id);
-            if ($toolModel === null)
+            if ($toolModel === null) {
                 return response()->json([
                     'message' => 'Ferramenta Não Encontrada'
                 ]);
+            }
 
             $toolSaved = $this->toolsRepositories->update($toolModel, $request->all());
 
-            if ($toolSaved !== null)
+            if ($toolSaved !== null) {
                 return response()->json($toolSaved, Response::HTTP_OK);
-
+            }
         } catch (Exception $exception) {
             return response()->json([
                 'error' => $exception->getMessage(),
