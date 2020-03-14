@@ -1,0 +1,110 @@
+FORMAT: 1A
+HOST: https://seudominio.com
+
+# Bossabox Backend Challenge Vuttr
+
+Desafio backend da Bossabox Api Para Listagem de Ferramentas e seus respectivos links, descrições e tags
+
+## Estrutura da Url
+A url sempre começa com seu domínio definido ex: https://seudominio.com.br/
+
+
+## Códigos de Status
+
+Os códigos de status são como a api responde as chamadas cada operação resulta em um
+determinado código de retorno
+
+| Status | Error Code
+|:-------|----------------------
+| `200`  | OK
+| `201`  | Created
+| `204`  | No Content
+| `400`  | Bad Request
+| `403`  | Forbidden
+| `404`  | Not Found
+
+# Group Tools
+
+### Listar Ferramentas [GET /tools?tag={node}]
+
++ Parameters
+   + node: "web" (string, optional) - Tag para filtragem de ferramentas
+
++ Response 200 (application/json)
+
+        [
+                {
+                    id: 1,
+                    title: "Notion",
+                    link: "https://notion.so",
+                    description: "All in one tool to organize teams and ideas. Write, plan, collaborate, and get organized. ",
+                    tags: [
+                        "organization",
+                        "planning",
+                        "collaboration",
+                        "writing",
+                        "calendar"
+                    ]
+                },
+                {
+                    id: 2,
+                    title: "json-server",
+                    link: "https://github.com/typicode/json-server",
+                    description: "Fake REST API based on a json schema. Useful for mocking and creating APIs for front-end devs to consume in coding challenges.",
+                    tags: [
+                        "api",
+                        "json",
+                        "schema",
+                        "node",
+                        "github",
+                        "rest"
+                    ]
+                },
+                {
+                    id: 3,
+                    title: "fastify",
+                    link: "https://www.fastify.io/",
+                    description: "Extremely fast and simple, low-overhead web framework for NodeJS. Supports HTTP2.",
+                    tags: [
+                        "web",
+                        "framework",
+                        "node",
+                        "http2",
+                        "https",
+                        "localhost"
+                    ]
+                }
+            ]
+
+
+### Adicionar Nova Ferramenta [POST /tools]
+
++ Request Criar Nova Ferramenta - Caso a tag não esteja cadastrada ela será cadastrada automaticamente (application/json)
+
+           {
+            "title": "hotel",
+            "link": "https://github.com/typicode/hotel",
+            "description": "Local app manager. Start apps within your browser, developer tool with local .localhost domain and https out of the box.",
+            "tags":["node", "organizing", "webapps", "domain", "developer", "https", "proxy"]
+            }
+
+
++ Response 201 (application/json)
+
+         {
+            "title": "hotel",
+            "link": "https://github.com/typicode/hotel",
+            "description": "Local app manager. Start apps within your browser, developer tool with local .localhost domain and https out of the box.",
+            "tags":["node", "organizing", "webapps", "domain", "developer", "https", "proxy"],
+            "id":5
+         }
+
+
+### Remover Ferramenta [DELETE /tools/{id}]
+
++ Parameters
+ + id: 90 (integer, required) - Identificador da ferramenta
+
++ Response 204 (application/json)
+
+
