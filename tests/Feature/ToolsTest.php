@@ -20,8 +20,7 @@ class ToolsTest extends TestCase
             [
                 "id"=> 1,
                 "title"=> "Notion",
-                "description"=> "All in one tool to organize teams and ideas.
-                                 Write, plan, collaborate, and get organized.",
+                "description"=> "All in one tool to organize teams and ideas.",
                 "link"=> "https://notion.so",
                 "tags"=> [
                     "organization",
@@ -41,8 +40,7 @@ class ToolsTest extends TestCase
             [
                 "id"=> 1,
                 "title"=> "Notion",
-                "description"=> "All in one tool to organize teams and ideas.
-                                 Write, plan, collaborate, and get organized.",
+                "description"=> "All in one tool to organize teams and ideas.",
                 "link"=> "https://notion.so",
                 "tags"=> [
                     "organization",

@@ -15,7 +15,7 @@ class ToolsTableSeeder extends Seeder
         Tool::insert([
             [
                 'title' => 'Notion',
-                'description' => 'All in one tool to organize teams and ideas. Write, plan, collaborate, and get organized.',
+                'description' => 'All in one tool to organize teams and ideas.',
                 'link' => 'https://notion.so',
             ],
             [
