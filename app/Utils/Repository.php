@@ -126,7 +126,7 @@ abstract class Repository implements RepositoryInterface
 
     /**
      * @param array $data
-     * @return void
+     * @return \Illuminate\Database\Eloquent\Model
      */
     public function create(array $data)
     {

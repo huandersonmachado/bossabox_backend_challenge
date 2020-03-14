@@ -19,3 +19,7 @@ Route::group(['prefix' => 'tools'], function () {
     Route::put('/', 'ToolsController@update')->name('tools.update');
     Route::delete('{id}', 'ToolsController@delete')->name('tools.delete');
 });
+
+Route::group(['prefix' => 'users'], function () {
+    Route::post('/', 'UsersController@store');
+});
