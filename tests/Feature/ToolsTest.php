@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Tool;
+use App\Repositories\TagsRepositories;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -133,5 +134,78 @@ class ToolsTest extends TestCase
         $this->assertDatabaseMissing('tools', [
             'id' => $tool->id
         ]);
+    }
+
+    public function testUpdateTool()
+    {
+
+        $tool = Tool::create([
+            "title"=> "Laravel Debugbar",
+            "description"=> "This is a package to integrate PHP Debug Bar with Laravel 5. It includes a ServiceProvider to register the debugbar and attach it to the output.",
+            "link"=> "https://github.com/barryvdh/laravel-debugbar",
+        ]);
+
+        $tagsRespository = app()->make(TagsRepositories::class);
+
+        $tags = $tagsRespository->createOrUpdate([
+            'Laravel',
+            'Debug',
+            'PHP'
+        ]);
+
+        $tool->tags()->sync($tags);
+
+        $response = $this->withHeaders([
+            'Accept' => 'application/json'
+        ])
+        ->json('PUT', '/tools', [
+            'id' => $tool->id,
+            'title' => 'Debugbar Laravel',
+            'description' => 'Debugbar para o Laravel',
+            'link' => 'https://github.com/barryvdh/laravel-debugbar',
+            'tags' => [
+                'Laravel',
+                'web',
+                'framework',
+                'node',
+                'http2',
+                'https',
+                'localhost'
+            ]
+        ]);
+
+        $response->assertStatus(200);
+
+        $response->assertJson([
+            'id' => $tool->id,
+            'title' => 'Debugbar Laravel',
+            'description' => 'Debugbar para o Laravel',
+            'tags' => [
+                'Laravel',
+                'web',
+                'framework',
+                'node',
+                'http2',
+                'https',
+                'localhost'
+            ],
+        ]);
+
+        $this->assertDatabaseHas('tools', [
+            'id' => $tool->id,
+            'title' => 'Debugbar Laravel',
+            'description' => 'Debugbar para o Laravel',
+        ]);
+
+        $toolUpdated = Tool::with('tags')->find($tool->id);
+
+        $this->assertCount(7, $toolUpdated->tags);
+
+        $toolUpdated->tags->each(function($tag) use ($tool) {
+            $this->assertDatabaseHas('tools_tags', [
+                'tool_id' => $tool->id,
+                'tag_id' => $tag->id,
+            ]);
+        });
     }
 }

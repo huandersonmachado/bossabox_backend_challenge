@@ -76,4 +76,29 @@ class ToolsController extends Controller
             ]);
         }
     }
+
+    /**
+     * @param ToolsRequest
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update(ToolsRequest $request)
+    {
+        try {
+            $toolModel = $this->toolsRepositories->findById($request->id);
+            if ($toolModel === null)
+                return response()->json([
+                    'message' => 'Ferramenta Não Encontrada'
+                ]);
+
+            $toolSaved = $this->toolsRepositories->update($toolModel, $request->all());
+
+            if ($toolSaved !== null)
+                return response()->json($toolSaved, Response::HTTP_OK);
+
+        } catch (Exception $exception) {
+            return response()->json([
+                'error' => $exception->getMessage(),
+            ]);
+        }
+    }
 }

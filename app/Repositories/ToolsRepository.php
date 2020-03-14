@@ -4,14 +4,28 @@ namespace App\Repositories;
 
 use App\Models\Tool;
 use App\Utils\Repository;
-use Illuminate\Http\Request;
-use App\Http\Resources\ToolsCollection;
-use App\Http\Resources\ToolsResource;
 use Illuminate\Support\Arr;
+use Illuminate\Http\Request;
+use App\Http\Resources\ToolsResource;
+use App\Http\Resources\ToolsCollection;
+use Illuminate\Database\Eloquent\Model;
 
 class ToolsRepositories extends Repository
 {
     protected $modelClass = Tool::class;
+
+    /**
+     * @var TagsRepositories
+     */
+    private $tagsRepository;
+
+    /**
+     * @param TagsRepositories $tagsRepositories
+     */
+    public function __construct(TagsRepositories $tagsRepository)
+    {
+        $this->tagsRepository = $tagsRepository;
+    }
 
     /**
      *
@@ -37,15 +51,33 @@ class ToolsRepositories extends Repository
      */
     public function create(array $data)
     {
-        $tagsRepository = app()->make(TagsRepositories::class);
         $toolData = Arr::except($data, ['tags']);
         $model = $this->factory($toolData);
 
         $this->save($model);
 
-        $tagsIds = $tagsRepository->createOrUpdate($data['tags']);
+        $tagsIds = $this->tagsRepository->createOrUpdate($data['tags']);
 
         $model->tags()->sync($tagsIds);
+
+        $toolModel = $this->newQuery()->with('tags')->find($model->id);
+
+        return new ToolsResource($toolModel);
+    }
+
+    /**
+     *
+     * @param Model $model
+     * @param array $data
+     * @return ToolsResource
+     */
+    public function update(Model $model, array $data = [])
+    {
+        $this->setModelData($model, $data);
+        $tagsIds = $this->tagsRepository->createOrUpdate($data['tags']);
+
+        $model->tags()->sync($tagsIds);
+        $this->save($model);
 
         $toolModel = $this->newQuery()->with('tags')->find($model->id);
 
