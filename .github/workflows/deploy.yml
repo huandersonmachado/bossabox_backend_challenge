@@ -11,10 +11,12 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - name: Push to server
-        uses: appleboy/ssh-action@master
+        uses: appleboy/scp-action@master
+        env:
+          KEY: ${{ secrets.SERVER_SSH_KEY }}
+          HOST: ${{ secrets.REMOTE_HOST }}
+          USERNAME: ${{ secrets.REMOTE_USER }}
+          PORT: ${{ secrets.PORT }}
         with:
-          key: ${{ secrets.SERVER_SSH_KEY }}
-          host: ${{ secrets.REMOTE_HOST }}
-          username: ${{ secrets.REMOTE_USER }}
-          port: ${{ secrets.PORT }}
-          script: git push ssh://${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}/home/deploy/vuttr_backend/repo
+          source: "."
+          target: "/vuttr_backend/www"
