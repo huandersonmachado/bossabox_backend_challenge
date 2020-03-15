@@ -17,5 +17,4 @@ jobs:
           host: ${{ secrets.REMOTE_HOST }}
           username: ${{ secrets.REMOTE_USER }}
           port: ${{ secrets.PORT }}
-          script: whoami
-          debug: true
+          script: git push ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}/vuttr_backend/repo master
