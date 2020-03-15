@@ -2,6 +2,10 @@
 
 Desafio feito para a Bossabox utilizando as ferramentas: Laravel, Laradock e Mysql
 
+[![codecov](https://codecov.io/gh/huandersonmachado/bossabox_backend_challenge/branch/master/graph/badge.svg)](https://codecov.io/gh/huandersonmachado/bossabox_backend_challenge)
+
+![Testes E Code Sniffer](https://github.com/huandersonmachado/bossabox_backend_challenge/workflows/Testes%20E%20Code%20Sniffer/badge.svg?branch=master)
+
 ### Laradock
 
 O Ambiente é montado utlizando o laradock
