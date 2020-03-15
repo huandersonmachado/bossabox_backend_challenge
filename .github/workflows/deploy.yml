@@ -18,3 +18,4 @@ jobs:
           username: ${{ secrets.REMOTE_USER }}
           port: ${{ secrets.PORT }}
           script: whoami
+          debug: true
