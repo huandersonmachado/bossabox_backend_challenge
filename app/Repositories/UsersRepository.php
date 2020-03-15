@@ -20,4 +20,13 @@ class UsersRepository extends Repository
         $this->save($model);
         return $model;
     }
+
+     /**
+     * @param string $email
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    public function findByEmail(string $email)
+    {
+        return $this->newQuery()->where('email', $email)->first();
+    }
 }

@@ -22,6 +22,8 @@ Route::middleware('auth:airlock')->group(function () {
     });
 });
 
+Route::post('login', 'AuthController@login')->name('login');
+
 Route::group(['prefix' => 'users'], function () {
     Route::post('/', 'UsersController@store');
 });

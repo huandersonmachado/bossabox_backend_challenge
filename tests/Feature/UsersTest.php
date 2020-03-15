@@ -23,11 +23,34 @@ class UsersTest extends TestCase
         ]);
 
         $response->assertJsonFragment([
-                'name' => 'Huanderson Machado',
-                'email' => 'contato@huanderson.dev',
+            'name' => 'Huanderson Machado',
+            'email' => 'contato@huanderson.dev',
         ]);
 
         $response->assertJsonCount(2);
         $response->assertStatus(201);
+    }
+
+    public function testCreateUserWithDataWrong()
+    {
+        $response = $this->post('/users', [
+            'email' => 'contatohuanderson.dev',
+            'password' => '12345678',
+            'password_confirmation' => '123456780',
+        ], [
+            'Accept' => 'application/json'
+        ]);
+
+        $response->assertJson([
+            'message' => 'The given data was invalid.',
+            'errors' => [
+                'name' => [
+                    'The name field is required.'
+                ],
+                'email' => [
+                    'The email must be a valid email address.'
+                ],
+            ],
+        ]);
     }
 }
