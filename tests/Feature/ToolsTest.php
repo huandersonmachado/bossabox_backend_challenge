@@ -3,8 +3,10 @@
 namespace Tests\Feature;
 
 use App\Models\Tool;
+use App\Models\User;
 use App\Repositories\TagsRepositories;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Laravel\Airlock\Airlock;
 use Tests\TestCase;
 
 class ToolsTest extends TestCase
@@ -13,6 +15,10 @@ class ToolsTest extends TestCase
 
     public function testReturnAllTools()
     {
+        Airlock::actingAs(
+            factory(User::class)->create(),
+            ['*']
+        );
         $response = $this->get('/tools');
 
         $response->assertStatus(200);
@@ -33,6 +39,11 @@ class ToolsTest extends TestCase
 
     public function testSearchByTag()
     {
+        Airlock::actingAs(
+            factory(User::class)->create(),
+            ['*']
+        );
+
         $response = $this->get('/tools?node=planning');
 
         $response->assertStatus(200);
@@ -53,6 +64,11 @@ class ToolsTest extends TestCase
 
     public function testCreateToolAndTag()
     {
+        Airlock::actingAs(
+            factory(User::class)->create(),
+            ['*']
+        );
+
         $response = $this->post('/tools', [
                 'title' => 'fastify',
                 'link' => 'https://www.fastify.io/',
@@ -121,6 +137,11 @@ class ToolsTest extends TestCase
 
     public function testDeleteTool()
     {
+        Airlock::actingAs(
+            factory(User::class)->create(),
+            ['*']
+        );
+
         $tool = Tool::create([
             "title"=> "Notion",
             "description"=> "All in one tool to organize teams and ideas. Write, plan, collaborate, and get organized.",
@@ -138,6 +159,10 @@ class ToolsTest extends TestCase
 
     public function testUpdateTool()
     {
+        Airlock::actingAs(
+            factory(User::class)->create(),
+            ['*']
+        );
 
         $tool = Tool::create([
             "title"=> "Laravel Debugbar",
