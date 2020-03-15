@@ -17,12 +17,6 @@ abstract class Repository implements RepositoryInterface
     protected $modelClass;
 
     /**
-     *
-     * @var string
-     */
-    protected $uuidColumn = 'uuid';
-
-    /**
      * @return Builder
      */
     protected function newQuery()
@@ -99,16 +93,6 @@ abstract class Repository implements RepositoryInterface
 
     /**
      *
-     * @param string $uuid
-     * @return Model|Builder
-     */
-    public function findByUuid($uuid)
-    {
-        return $this->newQuery()->where($this->uuidColumn, $uuid)->first();
-    }
-
-    /**
-     *
      * @param array $data
      * @return void
      */
@@ -142,7 +126,7 @@ abstract class Repository implements RepositoryInterface
 
     /**
      * @param array $data
-     * @return void
+     * @return \Illuminate\Database\Eloquent\Model
      */
     public function create(array $data)
     {
@@ -157,7 +141,7 @@ abstract class Repository implements RepositoryInterface
      */
     public function delete(Model $model)
     {
-        $model->delete();
+        return $model->delete();
     }
 
     /**

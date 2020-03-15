@@ -13,6 +13,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::middleware('auth:airlock')->group(function () {
+    Route::group(['prefix' => 'tools'], function () {
+        Route::get('/', 'ToolsController@index')->name('tools.index');
+        Route::post('/', 'ToolsController@store')->name('tools.store');
+        Route::put('/', 'ToolsController@update')->name('tools.update');
+        Route::delete('{id}', 'ToolsController@delete')->name('tools.delete');
+    });
+});
+
+Route::post('login', 'AuthController@login')->name('login');
+
+Route::group(['prefix' => 'users'], function () {
+    Route::post('/', 'UsersController@store');
 });

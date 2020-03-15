@@ -1,78 +1,75 @@
-<p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
+# Bossabox Desafio Backend Vuttr
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+Desafio feito para a Bossabox utilizando as ferramentas: Laravel, Laradock e Mysql
 
-## About Laravel
+[![codecov](https://codecov.io/gh/huandersonmachado/bossabox_backend_challenge/branch/master/graph/badge.svg)](https://codecov.io/gh/huandersonmachado/bossabox_backend_challenge)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+![Testes E Code Sniffer](https://github.com/huandersonmachado/bossabox_backend_challenge/workflows/Testes%20E%20Code%20Sniffer/badge.svg?branch=master)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Laradock
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+O Ambiente é montado utlizando o laradock
+[Laradock](https://laradock.io/)
 
-## Learning Laravel
+### Baixando o Projeto
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+```
+    git clone git@github.com:huandersonmachado/bossabox_backend_challenge.git
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Subindo a Aplicação
 
-## Laravel Sponsors
+Baixe o Laradock
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+```
+    git submodule init
+    git submodule update
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- [UserInsights](https://userinsights.com)
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
-- [iMi digital](https://www.imi-digital.de/)
-- [Earthlink](https://www.earthlink.ro/)
-- [Steadfast Collective](https://steadfastcollective.com/)
-- [We Are The Robots Inc.](https://watr.mx/)
-- [Understand.io](https://www.understand.io/)
-- [Abdel Elrafa](https://abdelelrafa.com)
-- [Hyper Host](https://hyper.host)
-- [Appoly](https://www.appoly.co.uk)
-- [OP.GG](https://op.gg)
+Para configuração da porta da aplicação e banco de dados acesse a pasta laradock/ e copie o arquivo **env-example** para **.env** e mude as seguintes configurações;
 
-## Contributing
+```
+MYSQL_DATABASE=bossabox
+MYSQL_USER=bossabox
+MYSQL_PASSWORD=bossabox_challenge
+MYSQL_PORT=3306
+MYSQL_ROOT_PASSWORD=root
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+NGINX_HOST_HTTP_PORT=3000
+```
 
-## Code of Conduct
+Após configurar basta iniciar os containers ainda dentro da pasta laradock/
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```
+    docker-compose up -d nginx mysql
+```
 
-## Security Vulnerabilities
+### Utilizando o PHP nos containers
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Para utilizar os comandos listados abaixo basta entrar no container workspace criado por padrão pelo laradock
 
-## License
+```
+    docker-compose exec --user=laradock workspace bash
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Criando o arquivo .env Laravel
+
+Dentro do container Copie o arquivo **.env.example** para **.env** logo em seguinda execute o artisan para criar a chave da aplicação, lembre-se de configurar as chaves com os valores respectivos configurados no .env do laradock
+
+```
+    php artisan key:genarate
+```
+
+### Instalando as dependências
+
+Para Instalar as dependências dos projeto basta rodar o composer
+
+```
+    composer install
+```
+
+### Executando os Testes
+
+```
+    php artisan test
+```
