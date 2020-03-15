@@ -18,11 +18,12 @@ class TagsRepositories extends Repository
 
         $tags = collect($data);
 
-        return $tags->map(function($tag) {
+        return $tags->map(function ($tag) {
             $tagModel = $this->findByName(strtolower($tag));
 
-            if ($tagModel !== null)
+            if ($tagModel !== null) {
                 return $tagModel->id;
+            }
 
             $tagCreated = $this->create(['name' => $tag]);
             return $tagCreated->id;

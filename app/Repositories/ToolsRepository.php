@@ -35,7 +35,7 @@ class ToolsRepositories extends Repository
     {
         $node = request('node');
         if ($node) {
-            $tools = $this->newQuery()->whereHas('tags', function ($query) use($node) {
+            $tools = $this->newQuery()->whereHas('tags', function ($query) use ($node) {
                 $query->where('name', '=', $node);
             })->get();
         } else {
