@@ -20,3 +20,18 @@ jobs:
         with:
           source: "."
           target: "vuttr_backend/www/"
+      - name: Configure
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cd laradock/
+            docker-compose -f production-docker-compose.yml up -d
+            docker-compose exec --user=laradock workspace composer update
+            docker-compose exec --user=laradock workspace composer dumpautoload
+            docker-compose exec --user=laradock workspace php artisan config:clear
+            docker-compose exec --user=laradock workspace php artisan cache:clear
+            docker-compose exec --user=laradock workspace php artisan migrate
