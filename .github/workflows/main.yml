@@ -24,7 +24,7 @@ jobs:
         run: php artisan key:generate
         working-directory: ${{ env.working-directory }}
       - name: Run Migrations
-        run: app/php artisan migrate
+        run: php artisan migrate
         working-directory: ${{ env.working-directory }}
       - name: Run Tests And Code Coverage
         run: ./vendor/bin/phpunit -c phpunit.xml.dist
