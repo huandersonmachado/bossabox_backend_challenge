@@ -9,21 +9,29 @@ on:
 
 jobs:
   laravel-tests-codesniffer:
+    env:
+      working-directory: ./app
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: Copy Env File Configuration
-        run: ./app/php -r "file_exists('.env') || copy('.env.ci', '.env');"
+        run: php -r "file_exists('.env') || copy('.env.ci', '.env');"
+        working-directory: ${{ env.working-directory }}
       - name: Install Composers Dependencies
-        run: ./app/composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+        working-directory: ${{ env.working-directory }}
       - name: Genarate Laravel Key
-        run: ./app/php artisan key:generate
+        run: php artisan key:generate
+        working-directory: ${{ env.working-directory }}
       - name: Run Migrations
         run: app/php artisan migrate
+        working-directory: ${{ env.working-directory }}
       - name: Run Tests And Code Coverage
-        run: ./app/vendor/bin/phpunit -c phpunit.xml.dist
+        run: ./vendor/bin/phpunit -c phpunit.xml.dist
+        working-directory: ${{ env.working-directory }}
       - name: Run Code Sniffer
-        run: ./app/vendor/bin/phpcs
+        run: ./vendor/bin/phpcs
+        working-directory: ${{ env.working-directory }}
       - name: Codecov
         uses: codecov/codecov-action@v1
         with:
