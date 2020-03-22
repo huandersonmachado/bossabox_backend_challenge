@@ -11,7 +11,7 @@ jobs:
   laravel-tests-codesniffer:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - name: Copy Env File Configuration
         run: php -r "file_exists('.env') || copy('.env.ci', '.env');"
       - name: Install Composers Dependencies
